@@ -1,0 +1,13 @@
+<h1>出勤退勤</h1>
+
+<%= @attendance.working_status%>
+
+<%= form_for(@attendance) do |f|%>
+  <%=f.hidden_field :status, value:'in'%>
+<%= f.submit '出社',disabled: !!@attendance.attendance_time, class: 'btn btn-default'%>
+<% end%>
+
+<%= form_for(@attendance) do |f|%>
+  <%=f.hidden_field :status, value:'out'%>
+<%= f.submit '退社',disabled: !@attendance.attendance_time|| !!@attendance.leaving_time, class: 'btn btn-default'%>
+<% end%>

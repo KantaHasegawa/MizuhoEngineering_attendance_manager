@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  get 'static_pages/index'
   devise_for :users
-  get 'pages/index'
-  get 'pages/show'
-  root 'pages#index'
+  root 'static_pages#index'
+  resources :attendances
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
