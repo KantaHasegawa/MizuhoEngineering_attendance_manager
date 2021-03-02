@@ -10,15 +10,17 @@
 
     <body>
         <header>
-            <nav>
-                <% if user_signed_in? %>
-                <%= link_to 'プロフィール変更', edit_user_registration_path %>
-                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-            <% else %>
-                <%= link_to 'サインアップ', new_user_registration_path %>
-                <%= link_to 'ログイン', new_user_session_path %>
-                <% end %>
-            </nav>
+        <nav>
+        <%= link_to 'ホーム', root_path %>
+        <% if user_signed_in? %>
+        <%= link_to 'プロフィール変更', edit_user_registration_path %>
+        <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <%= link_to '出勤退勤をする','/attendances/show'%>
+        <% else %>
+        <%= link_to 'サインアップ', new_user_registration_path %>
+        <%= link_to 'ログイン', new_user_session_path %>
+        <% end %>
+        </nav>
         </header>
 
         <p class="notice"><%= notice %></p>

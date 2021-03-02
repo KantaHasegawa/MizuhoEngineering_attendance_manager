@@ -1,6 +1,20 @@
 <h1>出勤退勤</h1>
 
-<%= @attendance.working_status%>
+<%= "今日は#{Date.today}です"%>
+
+<% case @attendance.working_status%>
+<% when :not_arrived%>
+<p>未出社</p>
+<% when :working%>
+<p>出勤中</p>
+<%="出勤時刻: #{@attendance.attendance_time}"%>
+<% when :left%>
+<p>退勤済み</p>
+<%="出勤時刻: #{@attendance.attendance_time}"%> <br>
+<%="退勤時刻: #{@attendance.leaving_time}"%> <br>
+<% working_time = @attendance.working_time.divmod(60)%>
+<%="勤務時間: #{working_time[0]}時間#{working_time[1]}分"%>
+<%end%>
 
 <%= form_for(@attendance) do |f|%>
   <%=f.hidden_field :status, value:'in'%>
