@@ -1,0 +1,25 @@
+<% if @user.admin == true%>
+あなたは管理者です
+<%else%>
+<table class="table table-striped table-bordered table-sm">
+  <thead>
+    <tr>
+      <th>日付</th>
+      <th>出勤時間</th>
+      <th>退勤時間</th>
+      <th>勤務時間</th>
+    </tr>
+  </thead>
+  <%@user.attendances.each do |attendance|%>
+  <tbody>
+    <tr>
+      <td><%=attendance.date%></td>
+      <td><%=attendance.attendance_time.strftime("%H:%M:%S")%></td>
+      <td><%=attendance.leaving_time.strftime("%H:%M:%S")%></td>
+      <% working_time = attendance.working_time.divmod(60)%>
+      <td><%="#{working_time[0]}時間#{working_time[1]}分"%></td>
+    </tr>
+  </tbody>
+</table>
+<%end%>
+<%end%>
