@@ -1,0 +1,5 @@
+<h1>勤務地一覧</h1>
+<%=link_to "勤務地を追加する",new_working_place_path%> <br>
+<%@working_places.each do |working_place|%>
+<%=link_to working_place.addres, working_place%> <br>
+<%end%>

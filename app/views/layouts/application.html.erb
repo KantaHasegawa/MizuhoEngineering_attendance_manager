@@ -17,6 +17,7 @@
         <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
         <% if current_user.admin == true %>
             <%= link_to '勤務状況' , users_path%>
+            <%= link_to '勤務地一覧' , working_places_path%>
         <%else%>
         <%= link_to '出勤退勤をする','/attendances/show'%>
         <%end%>

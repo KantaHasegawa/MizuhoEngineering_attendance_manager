@@ -1,0 +1,6 @@
+勤務地を編集する
+<%= form_for(@working_place) do |f|%>
+<%= f.text_field :addres%> <br>
+<%= f.submit %>
+<%= button_to "削除する",working_place_path(@working_place), method: :delete%>
+<% end%>
