@@ -1,6 +1,8 @@
 class WorkingPlacesController < ApplicationController
   def new
     @working_place = WorkingPlace.new
+    @relationship = @working_place.relationships.build
+    @users = User.where(admin: false)
   end
 
   def index
@@ -9,6 +11,7 @@ class WorkingPlacesController < ApplicationController
 
   def show
     @working_place = WorkingPlace.find(params[:id])
+    @users = @working_place.users
   end
 
   def create
@@ -19,6 +22,7 @@ class WorkingPlacesController < ApplicationController
 
   def edit
     @working_place = WorkingPlace.find(params[:id])
+    @users = User.where(admin: false)
   end
 
   def update
@@ -38,6 +42,14 @@ class WorkingPlacesController < ApplicationController
   private
 
   def working_place_params
-    params.require(:working_place).permit(:addres)
+    params.require(:working_place).permit(
+      :addres,
+      relationships_attributes: [
+        :id,
+        :user_id,
+        :working_place_id,
+        :_destroy,
+      ]
+    )
   end
 end

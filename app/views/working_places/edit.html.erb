@@ -1,6 +1,13 @@
-勤務地を編集する
-<%= form_for(@working_place) do |f|%>
-<%= f.text_field :addres%> <br>
+<h1>勤務地を編集する</h1>
+<%= form_with(model: @working_place, local: true) do |f|%>
+<%=f.label "住所"%>
+<%= f.text_field :addres%>
+<div class="parent">
+
+  <%= f.fields_for :relationships do |relationship| %>
+  <%= render "relationship_fields", f: relationship %>
+  <% end %>
+  <%= link_to_add_association "勤務する社員を追加", f, :relationships %>
+</div>
 <%= f.submit %>
-<%= button_to "削除する",working_place_path(@working_place), method: :delete%>
 <% end%>

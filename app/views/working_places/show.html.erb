@@ -1,3 +1,7 @@
 <h1>勤務地詳細</h1>
 <%= @working_place.addres%> <br>
+<h3>出勤可能な社員</h3>
+<% @users.each do |user|%>
+<%= user.name%> <br>
+<%end%>
 <%=link_to "編集する",edit_working_place_path%>
