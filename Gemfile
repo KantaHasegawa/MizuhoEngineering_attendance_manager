@@ -39,6 +39,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
   gem 'debase'
   gem 'ruby-debug-ide'
+  gem 'pry-rails'
 end
 
 group :development do

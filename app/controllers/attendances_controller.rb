@@ -4,13 +4,15 @@ class AttendancesController < ApplicationController
 
   def show
     @attendance  = Attendance.today_status(current_user)
+    @working_places = current_user.working_places
   end
 
   def create
+    # binding.pry
     @attendance  = Attendance.today_status(current_user)
     @attendance.attendance_time = Time.now
     @attendance.save
-    redirect_to show
+    redirect_to controller: :attendances, action: :show, id: @attendance.id
   end
 
   def update
@@ -24,7 +26,7 @@ class AttendancesController < ApplicationController
       @attendance.working_time = working_time
     end
     @attendance.save
-    redirect_to show
+    redirect_to controller: :attendances, action: :show, id: @attendance.id
   end
 
 
