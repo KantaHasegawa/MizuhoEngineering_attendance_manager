@@ -43,7 +43,7 @@ class WorkingPlacesController < ApplicationController
         flash[:success] = "勤務地を編集しました"
         redirect_to working_place_path
       else
-        flash[:alert] = "入力した住所は既に登録されています"
+        flash[:alert] = "入力に不備があります"
         redirect_to new_working_place_path
       end
     else

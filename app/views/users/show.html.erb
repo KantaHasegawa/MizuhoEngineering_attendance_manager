@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th>日付</th>
+      <th>勤務地</th>
       <th>出勤時間</th>
       <th>退勤時間</th>
       <th>勤務時間</th>
@@ -14,10 +15,11 @@
   <tbody>
     <tr>
       <td><%=attendance.date%></td>
-      <td><%=attendance.attendance_time.strftime("%H:%M:%S")%></td>
-      <td><%=attendance.leaving_time.strftime("%H:%M:%S")%></td>
-      <% working_time = attendance.working_time.divmod(60)%>
-      <td><%="#{working_time[0]}時間#{working_time[1]}分"%></td>
+      <td><%=attendance.working_place%></td>
+      <td><%=attendance.attendance_time.strftime("%H:%M:%S") if attendance.attendance_time%></td>
+      <td><%=attendance.leaving_time.strftime("%H:%M:%S")if attendance.leaving_time%></td>
+      <% working_time = attendance.working_time.divmod(60) if attendance.working_time %>
+      <td><%="#{working_time[0]}時間#{working_time[1]}分" if attendance.working_time%></td>
     </tr>
   </tbody>
 </table>
