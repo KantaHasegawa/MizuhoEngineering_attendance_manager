@@ -13,7 +13,7 @@ function successFunc(position) {
   // set_csrftoken();
   let lat = position.coords.latitude; //緯度
   let lng = position.coords.longitude; //経度
-
+  let form = document.getElementById('attendance_form')
   document.getElementById('attendance_lat').value = lat;
   document.getElementById("attendance_lng").value = lng;
   form.submit();

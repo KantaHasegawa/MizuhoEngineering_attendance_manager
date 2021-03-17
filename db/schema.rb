@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_063726) do
+ActiveRecord::Schema.define(version: 2021_03_17_044718) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id"
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 2021_03_15_063726) do
   end
 
   create_table "working_places", force: :cascade do |t|
-    t.string "addres"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
   end
 
 end

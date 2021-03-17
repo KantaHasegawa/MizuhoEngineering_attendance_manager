@@ -18,6 +18,7 @@ class Attendance < ApplicationRecord
       when [true, true]
       :left # 退社済
       end
-
 end
+
+
 end

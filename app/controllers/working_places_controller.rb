@@ -16,8 +16,18 @@ class WorkingPlacesController < ApplicationController
 
   def create
     @working_place = WorkingPlace.new(working_place_params)
-    @working_place.save
-    redirect_to working_places_path
+    unless Geocoder.search(@working_place.address).empty?
+      if @working_place.save
+        flash[:success] = "勤務地を登録しました"
+        redirect_to controller: :working_places, action: :show, id: @working_place.id
+      else
+        flash[:alert] = "入力した住所は既に登録されています"
+        redirect_to new_working_place_path
+      end
+    else
+      flash[:alert] = "正しい住所を入力してください"
+      redirect_to new_working_place_path
+    end
   end
 
   def edit
@@ -27,9 +37,20 @@ class WorkingPlacesController < ApplicationController
 
   def update
     @working_place = WorkingPlace.find(params[:id])
-    @working_place.update(working_place_params)
-    @working_place.save
-    redirect_to working_place_path
+      unless Geocoder.search(@working_place.address).empty?
+      @working_place.update(working_place_params)
+      if @working_place.save
+        flash[:success] = "勤務地を編集しました"
+        redirect_to working_place_path
+      else
+        flash[:alert] = "入力した住所は既に登録されています"
+        redirect_to new_working_place_path
+      end
+    else
+      flash[:alert] = "正しい住所を入力してください"
+      redirect_to new_working_place_path
+    end
+
   end
 
   def destroy
@@ -43,7 +64,9 @@ class WorkingPlacesController < ApplicationController
 
   def working_place_params
     params.require(:working_place).permit(
-      :addres,
+      :address,
+      :latitude,
+      :longitude,
       relationships_attributes: [
         :id,
         :user_id,

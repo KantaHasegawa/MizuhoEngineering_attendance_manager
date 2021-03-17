@@ -15,7 +15,7 @@
         <%= link_to 'ホーム', root_path %>
         <% if user_signed_in? %>
         <%= link_to 'プロフィール変更', edit_user_registration_path %>
-        <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         <% if current_user.admin == true %>
             <%= link_to '勤務状況' , users_path%>
             <%= link_to '勤務地一覧' , working_places_path%>
