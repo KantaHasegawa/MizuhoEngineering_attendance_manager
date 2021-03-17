@@ -8,7 +8,6 @@ class AttendancesController < ApplicationController
   end
 
   def create
-    # binding.pry
     if is_current_position_within_working_places(current_user.working_places,params[:attendance][:lat],params[:attendance][:lng]) == true
       @attendance  = Attendance.today_status(current_user)
       @attendance.attendance_time = Time.now
@@ -62,9 +61,6 @@ class AttendancesController < ApplicationController
         min = distances.min
         index = distances.index(min)
         near_place = working_places[index]
-
-        binding.pry
-
         return near_place.address
       end
 
