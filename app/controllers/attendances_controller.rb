@@ -24,10 +24,11 @@ class AttendancesController < ApplicationController
   def update
     if is_current_position_within_working_places(current_user.working_places,params[:attendance][:lat],params[:attendance][:lng]) == true
       @attendance  = Attendance.today_status(current_user)
-        @attendance.leaving_time = Time.now
-        working_time = @attendance.leaving_time - @attendance.attendance_time
-        working_time = working_time.to_i / 60
-        @attendance.working_time = working_time
+      @attendance.leaving_time = Time.now
+      @attendance.calculation_early_attendance
+      @attendance.calculation_late_leaving
+      @attendance.calculation_working_times
+      @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
       @attendance.save
       flash[:notice] = "退勤しました"
       redirect_to controller: :attendances, action: :show, id: @attendance.id
@@ -52,16 +53,15 @@ class AttendancesController < ApplicationController
     end
   end
 
-      def get_near_place(working_places,lat,lng)
-        distances = []
-        working_places.each do |working_place|
-          distance = working_place.distance_from([lat,lng])
-          distances.push(distance)
-        end
-        min = distances.min
-        index = distances.index(min)
-        near_place = working_places[index]
-        return near_place.address
-      end
-
+  def get_near_place(working_places,lat,lng)
+    distances = []
+    working_places.each do |working_place|
+      distance = working_place.distance_from([lat,lng])
+      distances.push(distance)
+    end
+    min = distances.min
+    index = distances.index(min)
+    near_place = working_places[index]
+    return near_place.address
+  end
 end

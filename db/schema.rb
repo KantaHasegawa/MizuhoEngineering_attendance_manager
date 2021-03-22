@@ -10,17 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_113215) do
+ActiveRecord::Schema.define(version: 2021_03_22_055532) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id"
-    t.time "attendance_time"
-    t.time "leaving_time"
-    t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "working_time"
+    t.integer "working_times"
     t.string "working_place"
+    t.integer "year"
+    t.integer "month"
+    t.integer "day"
+    t.integer "overtime_hours"
+    t.string "wday"
+    t.integer "early_attendance"
+    t.integer "late_leaving"
+    t.date "date"
+    t.datetime "attendance_time"
+    t.datetime "leaving_time"
   end
 
   create_table "relationships", force: :cascade do |t|

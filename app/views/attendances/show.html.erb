@@ -18,8 +18,8 @@
 <p>退勤済み</p>
 <%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%> <br>
 <%="退勤時刻: #{@attendance.leaving_time.strftime("%H:%M:%S")}"%> <br>
-<% working_time = @attendance.working_time.divmod(60)%>
-<%="勤務時間: #{working_time[0]}時間#{working_time[1]}分"%>
+<% working_times = @attendance.working_times.divmod(60)%>
+<%="勤務時間: #{working_times[0]}時間#{working_times[1]}分"%>
 <%end%>
 
 <%if !@attendance.attendance_time%>
