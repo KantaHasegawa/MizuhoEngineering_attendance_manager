@@ -6,6 +6,7 @@
 
 <%="#{@user.name}さんの#{params[:year] ||= Date.today.year}年#{params[:month] ||= Date.today.month}月の合計勤務時間は#{@current_month_working_times[0]}h#{@current_month_working_times[1]}mです"%>
 <%="合計時間外労働は#{@current_month_overtime_hours[0]}h#{@current_month_overtime_hours[1]}mです"%>
+<%= link_to 'Exel出力', user_path(format: :xlsx), data: {confirm: "Excel出力しますか？"}, class: 'btn btn-primary' %>
 <table class="table table-bordered.table-condensed">
   <thead>
     <tr>
@@ -33,7 +34,7 @@
     <tr>
       <td><%="#{attendance.month}月"%></td>
       <td><%="#{attendance.day}日"%></td>
-      <td><%=attendance.wday%></td>
+      <td><%="#{attendance.wday}曜日"%></td>
       <td><%=attendance.working_place%></td>
       <td><%=attendance.attendance_time.strftime("%H:%M")%></td>
       <td><%=attendance.leaving_time.strftime("%H:%M")%></td>

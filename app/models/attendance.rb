@@ -6,19 +6,19 @@ class Attendance < ApplicationRecord
       wday =
         case date.wday
         when 0
-          '日曜日'
+          '日'
         when 1
-          '月曜日'
+          '月'
         when 2
-          '火曜日'
+          '火'
         when 3
-          '水曜日'
+          '水'
         when 4
-          '木曜日'
+          '木'
         when 5
-          '金曜日'
+          '金'
         when 6
-          '土曜日'
+          '土'
         end
       params = {user_id: user.id, date:date, year: date.year, month:date.month, day: date.day, wday: wday}
       self.find_by(params) || self.new(params)
