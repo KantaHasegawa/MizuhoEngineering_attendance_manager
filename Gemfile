@@ -38,6 +38,8 @@ gem 'devise-i18n-views'
 
 gem 'rubyXL'
 
+gem 'gimei'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -45,7 +47,6 @@ group :development, :test do
   gem 'debase'
   gem 'ruby-debug-ide'
   gem 'pry-rails'
-  gem 'gimei'
 end
 
 group :development do
