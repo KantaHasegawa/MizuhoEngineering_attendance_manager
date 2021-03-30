@@ -1,43 +1,43 @@
-<h1>出勤退勤</h1>
-<h3>出勤可能な勤務地</h3>
-<%@working_places.each do |working_place|%>
-<%=working_place.address%> <br>
-<%end%>
+<div class="col">
+  <div class="account-wall">
+    <div class="chase-logo">
+      <% case @attendance.working_status%>
+      <% when :not_arrived%>
+      <h1 class="text-center">未出社</h1>
+      <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
+      <% when :working%>
+      <h1 class="text-center">出勤中</h1>
+      <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
 
-
-
-<%= "今日は#{Date.today}です"%>
-
-<% case @attendance.working_status%>
-<% when :not_arrived%>
-<p>未出社</p>
-<% when :working%>
-<p>出勤中</p>
-<%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%>
-<% when :left%>
-<p>退勤済み</p>
-<%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%> <br>
-<%="退勤時刻: #{@attendance.leaving_time.strftime("%H:%M:%S")}"%> <br>
-<% working_times = @attendance.working_times.divmod(60)%>
-<%="勤務時間: #{working_times[0]}時間#{working_times[1]}分"%>
-<%end%>
-
-<%if !@attendance.attendance_time%>
-
-<%= form_with model: @attendance, id: 'attendance_form', local: true do |f|%>
-  <%=f.hidden_field :status, value:'in'%>
-  <%=f.hidden_field :lat, value:nil%>
-  <%=f.hidden_field :lng, value:nil%>
-  <%=f.hidden_field :work_place, value:nil%>
-<button id="attendance_button">出社</button>
-<% end%>
-<%elsif !@attendance.leaving_time %>
-<%= form_with model: @attendance, id: 'attendance_form', local: true do |f|%>
-  <%=f.hidden_field :status, value:'out'%>
-  <%=f.hidden_field :lat, value:nil%>
-  <%=f.hidden_field :lng, value:nil%>
-  <button id="attendance_button">退社</button>
-<% end%>
-<% end %>
-
+      <h3 class="text-center"><%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%></h3>
+      <% when :left%>
+      <h1 class="text-center">退勤済み</h1>
+      <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
+      <h3 class="text-center"><%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%></h3>
+      <h3 class="text-center"><%="退勤時刻: #{@attendance.leaving_time.strftime("%H:%M:%S")}"%></h3>
+      <%end%>
+    </div>
+    <p></p>
+    <h4 class="text-center">出勤可能な勤務地</h3>
+      <%@working_places.each do |working_place|%>
+      <p class=text-center><%="・#{working_place.address}"%></p>
+      <%end%>
+      <%if !@attendance.attendance_time%>
+      <%= form_with model: @attendance, id: 'attendance_form', local: true do |f|%>
+      <%=f.hidden_field :status, value:'in'%>
+      <%=f.hidden_field :lat, value:nil%>
+      <%=f.hidden_field :lng, value:nil%>
+      <%=f.hidden_field :work_place, value:nil%>
+      <button id="attendance_button" class="btn btn-success btn-lg btn-block">出社</button>
+      <% end%>
+      <%elsif !@attendance.leaving_time %>
+      <%= form_with model: @attendance, id: 'attendance_form', local: true do |f|%>
+      <%=f.hidden_field :status, value:'out'%>
+      <%=f.hidden_field :lat, value:nil%>
+      <%=f.hidden_field :lng, value:nil%>
+      <button id="attendance_button" class="btn btn-warning btn-lg btn-block">退社</button>
+      <% end%>
+      <% end %>
+  </div>
+</div>
 <%= javascript_pack_tag 'attendance/show' %>

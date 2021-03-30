@@ -1,8 +1,26 @@
-<h1>勤務地詳細</h1>
-<%= @working_place.address%> <br>
-<h3>出勤可能な社員</h3>
-<% @users.each do |user|%>
-<%= user.name%> <br>
-<%end%>
-<%=link_to "編集する",edit_working_place_path%> <br>
-<%=link_to "削除する",working_place_path, method: :delete%>
+
+
+
+<div class="col">
+  <div class="account-wall">
+    <div class="chase-logo">
+      <h3 class="text-center"><%=@working_place.address%></h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class='text-center'>出勤可能な社員</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user|%>
+
+          <tr>
+            <td class='text-center'><%= user.name%></td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+      <%=link_to "編集",edit_working_place_path,class: 'btn btn-primary btn-block'%>
+
+    </div>
+  </div>

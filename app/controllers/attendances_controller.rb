@@ -21,7 +21,7 @@ class AttendancesController < ApplicationController
       redirect_to controller: :attendances, action: :show, id: @attendance.id
     else
       flash[:alert] = "指定された勤務地に向かってください"
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: 'attendance/show')
     end
   end
 
@@ -44,7 +44,7 @@ class AttendancesController < ApplicationController
         redirect_to controller: :attendances, action: :show, id: @attendance.id
       else
         flash[:alert] = "指定された勤務地に向かってください"
-        redirect_back(fallback_location: root_path)
+        redirect_back(fallback_location: 'attendance/show')
       end
     end
   end

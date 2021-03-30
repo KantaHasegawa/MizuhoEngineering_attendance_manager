@@ -1,13 +1,23 @@
+<h3 class='text-center'><%="#{@user.name}の勤務表"%></h3>
 <%= form_tag(user_path,:method => 'get') do %>
-<%= select_tag 'year',options_for_select([[2021,2021],[2022,2022],[2023,2023],[2024,2024],[2025,2025],[2026,2026],[2027,2027],[2028,2028],[2029,2029],[2030,2030]],params[:year] ||= Date.today.year)%>
-<%= select_tag 'month',options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10],[11,11],[12,12]],params[:month] ||= Date.today.month) %>
-<%= submit_tag 'Search', :name => nil %>
+<div class="form-row">
+<div class='col-5'>
+<%= select_tag 'year',options_for_select([[2021,2021],[2022,2022],[2023,2023],[2024,2024],[2025,2025],[2026,2026],[2027,2027],[2028,2028],[2029,2029],[2030,2030]],params[:year] ||= Date.today.year),class: 'form-control',id: 'selectYear'%>
+</div>
+<div class="col-5">
+<%= select_tag 'month',options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10],[11,11],[12,12]],params[:month] ||= Date.today.month),class: 'form-control',id: 'selectMonth' %>
+</div>
+<div class='col-1'>
+<%= submit_tag '検索', :name => nil,class: 'btn btn-secondary' %>
+</div>
+<div class='col-1'>
+<%= link_to 'Excel', user_path(format: :xlsx), data: {confirm: "Excel出力しますか？"}, class: 'btn btn-success' %>
+</div>
+</div>
+
 <% end %>
 
-<%="#{@user.name}さんの#{params[:year] ||= Date.today.year}年#{params[:month] ||= Date.today.month}月の合計勤務時間は#{@current_month_working_times[0]}h#{@current_month_working_times[1]}mです"%>
-<%="合計時間外労働は#{@current_month_overtime_hours[0]}h#{@current_month_overtime_hours[1]}mです"%>
-<%= link_to 'Exel出力', user_path(format: :xlsx), data: {confirm: "Excel出力しますか？"}, class: 'btn btn-primary' %>
-<table class="table table-bordered.table-condensed">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>月</th>
@@ -21,17 +31,16 @@
       <th>遅退</th>
       <th>時間外労働</th>
       <th>休憩時間</th>
-      <th></th>
       </tr>
   </thead>
+  <tbody>
   <%@attendances.each do |attendance|%>
   <% working_times = attendance.working_times.divmod(60) if attendance.working_times %>
   <% overtime_hours = attendance.overtime_hours.divmod(60) if attendance.overtime_hours %>
   <% early_attendance = attendance.early_attendance.divmod(60) if attendance.early_attendance %>
   <% late_leaving = attendance.late_leaving.divmod(60) if attendance.late_leaving %>
   <% rest_times = attendance.rest_times.divmod(60)%>
-  <tbody>
-    <tr>
+    <tr class="clickable-row" data-href='<%="/attendances/#{attendance.id}/edit"%>'>
       <td><%="#{attendance.month}月"%></td>
       <td><%="#{attendance.day}日"%></td>
       <td><%="#{attendance.wday}曜日"%></td>
@@ -43,8 +52,8 @@
       <td><%="#{late_leaving[0]}h#{late_leaving[1]}m" if attendance.late_leaving%></td>
       <td><%="#{overtime_hours[0]}h#{overtime_hours[1]}m" if attendance.overtime_hours%></td>
       <td><%="#{rest_times[0]}h#{rest_times[1]}m" if attendance.rest_times%></td>
-      <td><%=link_to "編集","/attendances/#{attendance.id}/edit"%></td>
     </tr>
     <%end%>
   </tbody>
 </table>
+<%= javascript_pack_tag 'user/show' %>

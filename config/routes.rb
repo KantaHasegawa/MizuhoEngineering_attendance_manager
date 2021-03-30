@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :working_places
-  get 'static_pages/index'
   devise_for :users
-  root 'static_pages#index'
+  devise_scope :user do
+  root :to => "devise/sessions#new"
+  end
   resources :attendances
   resources :users, only: %i[index show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

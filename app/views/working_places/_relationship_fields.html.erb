@@ -1,5 +1,10 @@
 <div class="nested-fields">
-  <%= f.label "社員" %>
-  <%= f.collection_select :user_id, @users, :id, :name %>
-  <%= link_to_remove_association "削除する", f %>
+  <div class='row'>
+    <div class='col-9'>
+      <%= f.collection_select :user_id, @users, :id, :name,{},{class: 'form-control'} %>
+    </div>
+    <div class="col-3">
+      <%= link_to_remove_association "削除", f,class: 'btn btn-outline-danger' %>
+    </div>
+  </div>
 </div>
