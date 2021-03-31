@@ -1,0 +1,33 @@
+<%
+  options = {
+    url: form_url
+  }
+  options[:as] = resource_name if defined?(resource_name) && resource_name.present?
+%>
+<div class="col">
+  <div class="account-wall">
+    <div class="chase-logo">
+      <h1 class="text-center login-title top-interval">情報の編集</h1>
+      <p class="text-center normal-text ">必要な情報を入力してください</p>
+      <%= render "devise/shared/error_messages" %>
+    </div>
+<%= form_for(resource, options) do |f| %>
+<% if !defined?(password_only) || !password_only %>
+<%= f.label :name %>
+<%= f.text_field :name ,class: "form-control"%>
+<%= f.label :email %>
+<%= f.email_field :email ,class: "form-control"%>
+<% end %>
+<% required = false %>
+<% if resource.new_record? %>
+<% required = true %>
+<% end %>
+<%= f.label :password %>
+<%= f.password_field :password, autocomplete: "off", required: required,class: "form-control" %>
+<%= f.label :password_confirmation %>
+<%= f.password_field :password_confirmation, autocomplete: "off",class: "form-control" %>
+<%= f.submit "編集",class: "btn btn-primary btn-block" %>
+<% end %>
+<%= link_to "戻る", :back,class: "btn btn-info btn-block" %>
+</div>
+</div>

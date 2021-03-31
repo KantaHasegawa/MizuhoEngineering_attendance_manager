@@ -1,6 +1,7 @@
 class AttendancesController < ApplicationController
 
-
+  include CommonActions
+  before_action :is_user_admin?, only:[:edit]
 
   def show
     @attendance  = Attendance.today_status(current_user)

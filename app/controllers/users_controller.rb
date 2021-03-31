@@ -6,12 +6,15 @@ class UsersController < ApplicationController
   require 'rubyXL/convenience_methods/font'
   require 'rubyXL/convenience_methods/workbook'
   require 'rubyXL/convenience_methods/worksheet'
+  include CommonActions
+
+  before_action :is_user_admin?
 
   def index
     @users = User.where(admin: false)
   end
 
-  def show
+  def table
     @user = User.find(params[:id])
     @attendances = Attendance.search(@user.id,params[:year],params[:month])
     current_year = params[:year] ||= Date.today.year
@@ -30,8 +33,6 @@ class UsersController < ApplicationController
     end
     @current_month_working_times = current_month_working_times.divmod(60)
     @current_month_overtime_hours = current_month_overtime_hours.divmod(60)
-
-
     #エクセル
     workbook = RubyXL::Parser.parse('app/assets/template.xlsx')
     workbook.calc_pr.full_calc_on_load = true
@@ -68,5 +69,10 @@ class UsersController < ApplicationController
     end
   ensure
     workbook.stream.close  # streamを閉じる
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @working_places = current_user.working_places
   end
 end
