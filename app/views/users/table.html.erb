@@ -39,14 +39,14 @@
   <% overtime_hours = attendance.overtime_hours.divmod(60) if attendance.overtime_hours %>
   <% early_attendance = attendance.early_attendance.divmod(60) if attendance.early_attendance %>
   <% late_leaving = attendance.late_leaving.divmod(60) if attendance.late_leaving %>
-  <% rest_times = attendance.rest_times.divmod(60) %>
+  <% rest_times = attendance.rest_times.divmod(60)  if attendance.rest_times%>
     <tr class="clickable-row" data-href='<%= "/attendances/#{attendance.id}/edit" %>'>
       <td><%= "#{attendance.month}月" %></td>
       <td><%= "#{attendance.day}日" %></td>
       <td><%= "#{attendance.wday}曜日" %></td>
       <td><%= attendance.working_place %></td>
-      <td><%= attendance.attendance_time.strftime("%H:%M") %></td>
-      <td><%= attendance.leaving_time.strftime("%H:%M") %></td>
+      <td><%= attendance.attendance_time.strftime("%H:%M")  %></td>
+      <td><%= attendance.leaving_time.strftime("%H:%M")  if attendance.leaving_time%></td>
       <td><%= "#{working_times[0]}h#{working_times[1]}m" if attendance.working_times %></td>
       <td><%= "#{early_attendance[0]}h#{early_attendance[1]}m" if attendance.early_attendance %></td>
       <td><%= "#{late_leaving[0]}h#{late_leaving[1]}m" if attendance.late_leaving %></td>

@@ -2,6 +2,15 @@ class Attendance < ApplicationRecord
   belongs_to :user
   class << self
     def today_status(user)
+
+      # binding.pry
+
+      if self.find_by(user:user.id,leaving_time:nil)
+
+        # binding.pry
+
+        return self.find_by(user:user.id,leaving_time:nil)
+      end
       date = Date.today
       wday = case date.wday
         when 0
@@ -67,6 +76,7 @@ class Attendance < ApplicationRecord
   end
 
   def self.search(user, year, month)
+
     if year.blank? || month.blank?
       return Attendance.where(user: user, year: Date.today.year, month: Date.today.month).order(:day)
     else
