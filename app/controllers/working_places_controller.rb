@@ -1,4 +1,7 @@
 class WorkingPlacesController < ApplicationController
+
+  include CommonActions
+  before_action :is_user_admin?
   def new
     @working_place = WorkingPlace.new
     @relationship = @working_place.relationships.build

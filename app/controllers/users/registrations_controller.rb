@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include CommonActions
   prepend_before_action :require_no_authentication, only: [:cancel]
   prepend_before_action :authenticate_scope!, only: [:update, :destroy]
   prepend_before_action :set_minimum_password_length, only: [:new, :edit]
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :is_user_admin?
   protect_from_forgery :except => [:destroy]
 
+
   # GET /resource/sign_up
-  def new
-    if current_user_is_admin?
-      super
-    else
-      flash[:alert] = "権限がありません"
-      redirect_to root_path
-    end
-  end
+
 
   # POST /resource
   # def create
@@ -24,17 +20,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def edit
-    if current_user_is_admin?
       if by_admin_user?(params)
         self.resource = resource_class.to_adapter.get!(params[:id])
       else
         authenticate_scope!
         super
       end
-    else
-      flash[:alert] = "権限がありません"
-      redirect_to root_path
-    end
   end
 
   # PUT /resource
