@@ -17,22 +17,22 @@ class WorkingPlacesController < ApplicationController
   def create
     @working_place = WorkingPlace.new(working_place_params)
     if is_names_unique(params[:working_place][:relationships_attributes])
-    unless Geocoder.search(@working_place.address).empty?
-      if @working_place.save
-        flash[:success] = "勤務地を登録しました"
-        redirect_to controller: :working_places, action: :show, id: @working_place.id
+      unless Geocoder.search(@working_place.address).empty?
+        if @working_place.save
+          flash[:success] = "勤務地を登録しました"
+          redirect_to controller: :working_places, action: :show, id: @working_place.id
+        else
+          flash[:alert] = "入力した住所は既に登録されています"
+          redirect_to new_working_place_path
+        end
       else
-        flash[:alert] = "入力した住所は既に登録されています"
+        flash[:alert] = "正しい住所を入力してください"
         redirect_to new_working_place_path
       end
     else
-      flash[:alert] = "正しい住所を入力してください"
-      redirect_to new_working_place_path
-    end
-  else
       flash[:alert] = "名前が重複しています"
       redirect_to new_working_place_path
-  end
+    end
   end
 
   def edit
@@ -44,23 +44,22 @@ class WorkingPlacesController < ApplicationController
     @working_place = WorkingPlace.find(params[:id])
     if is_names_unique(params[:working_place][:relationships_attributes])
       unless Geocoder.search(@working_place.address).empty?
-      @working_place.update(working_place_params)
-      if @working_place.save
-        flash[:success] = "勤務地を編集しました"
-        redirect_to working_place_path
+        @working_place.update(working_place_params)
+        if @working_place.save
+          flash[:success] = "勤務地を編集しました"
+          redirect_to working_place_path
+        else
+          flash[:alert] = "入力に不備があります"
+          redirect_to edit_working_place_path
+        end
       else
-        flash[:alert] = "入力に不備があります"
+        flash[:alert] = "正しい住所を入力してください"
         redirect_to edit_working_place_path
-      end
-      else
-      flash[:alert] = "正しい住所を入力してください"
-      redirect_to edit_working_place_path
       end
     else
       flash[:alert] = "名前が重複しています"
       redirect_to edit_working_place_path
     end
-
   end
 
   def destroy
@@ -68,7 +67,6 @@ class WorkingPlacesController < ApplicationController
     @working_place.destroy
     redirect_to working_places_path
   end
-
 
   private
 
@@ -90,7 +88,7 @@ class WorkingPlacesController < ApplicationController
         :user_id,
         :working_place_id,
         :_destroy,
-      ]
+      ],
     )
   end
 end

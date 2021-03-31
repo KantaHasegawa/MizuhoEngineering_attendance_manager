@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
-
-  require 'rubyXL'
-  require 'rubyXL/convenience_methods/cell'
-  require 'rubyXL/convenience_methods/color'
-  require 'rubyXL/convenience_methods/font'
-  require 'rubyXL/convenience_methods/workbook'
-  require 'rubyXL/convenience_methods/worksheet'
+  require "rubyXL"
+  require "rubyXL/convenience_methods/cell"
+  require "rubyXL/convenience_methods/color"
+  require "rubyXL/convenience_methods/font"
+  require "rubyXL/convenience_methods/workbook"
+  require "rubyXL/convenience_methods/worksheet"
   include CommonActions
 
   before_action :is_user_admin?
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
 
   def table
     @user = User.find(params[:id])
-    @attendances = Attendance.search(@user.id,params[:year],params[:month])
+    @attendances = Attendance.search(@user.id, params[:year], params[:month])
     current_year = params[:year] ||= Date.today.year
     current_month = params[:month] ||= Date.today.month
     current_month_working_times = 0
@@ -34,7 +33,7 @@ class UsersController < ApplicationController
     @current_month_working_times = current_month_working_times.divmod(60)
     @current_month_overtime_hours = current_month_overtime_hours.divmod(60)
     #エクセル
-    workbook = RubyXL::Parser.parse('app/assets/template.xlsx')
+    workbook = RubyXL::Parser.parse("app/assets/template.xlsx")
     workbook.calc_pr.full_calc_on_load = true
     workbook.calc_pr.calc_completed = true
     workbook.calc_pr.calc_on_save = true

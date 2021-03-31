@@ -4,7 +4,7 @@
 <div class="col">
   <div class="account-wall">
     <div class="chase-logo">
-      <h3 class="text-center"><%=@working_place.address%></h1>
+      <h3 class="text-center"><%= @working_place.address %></h1>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -12,16 +12,16 @@
           </tr>
         </thead>
         <tbody>
-          <% @users.each do |user|%>
+          <% @users.each do |user| %>
 
           <tr>
-            <td class='text-center'><%= user.name%></td>
+            <td class='text-center'><%= user.name %></td>
           </tr>
-          <%end%>
+          <% end %>
         </tbody>
       </table>
-      <%=link_to "編集",edit_working_place_path,class: 'btn btn-primary btn-block'%>
-      <%=link_to "戻る",working_places_path,class: 'btn btn-info btn-block'%>
+      <%= link_to "編集", edit_working_place_path, class: "btn btn-primary btn-block" %>
+      <%= link_to "戻る", working_places_path, class: "btn btn-info btn-block" %>
 
 
     </div>

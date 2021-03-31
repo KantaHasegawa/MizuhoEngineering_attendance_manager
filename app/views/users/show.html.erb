@@ -2,14 +2,14 @@
 <div class="col">
   <div class="account-wall">
     <div class="chase-logo">
-      <h1 class="text-center"><%=@user.name%></h1>
-      <h3 class="text-center"><%=@user.email%></h3>
+      <h1 class="text-center"><%= @user.name %></h1>
+      <h3 class="text-center"><%= @user.email %></h3>
           <h4 class="text-center">出勤可能な勤務地</h3>
-            <%@working_places.each do |working_place|%>
-            <p class=text-center><%="・#{working_place.address}"%></p>
-            <%end%>
-      <%=link_to '情報を編集',"#{@user.id}/edit",class: 'btn btn-primary btn-block'%>
-      <%= link_to "戻る", users_path,class: "btn btn-info btn-block" %>
+            <% @working_places.each do |working_place| %>
+            <p class=text-center><%= "・#{working_place.address}" %></p>
+            <% end %>
+      <%= link_to "情報を編集", "#{@user.id}/edit", class: "btn btn-primary btn-block" %>
+      <%= link_to "戻る", users_path, class: "btn btn-info btn-block" %>
     </div>
   </div>
 </div>

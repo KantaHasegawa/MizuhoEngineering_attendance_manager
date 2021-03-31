@@ -47,6 +47,7 @@ group :development, :test do
   gem 'debase'
   gem 'ruby-debug-ide'
   gem 'pry-rails'
+  gem 'rufo'
 end
 
 group :development do

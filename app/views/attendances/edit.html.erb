@@ -1,28 +1,28 @@
 <div class="col">
   <div class="account-wall">
     <div class="chase-logo">
-      <h1 class="text-center"><%="#{@attendance.year}年#{@attendance.month}月#{@attendance.day}日"%></h1>
+      <h1 class="text-center"><%= "#{@attendance.year}年#{@attendance.month}月#{@attendance.day}日" %></h1>
       <p class="text-center">修正する情報を入力してください</p>
-      <%working_places = WorkingPlace.all%>
-<%=form_with model: @attendance, local: true do |f|%>
-  <%=f.label "出勤時刻"%>
-  <%=f.time_field :attendance_time, class: 'form-control'%>　<br>
-  <%=f.label "退勤時刻"%>
-  <%=f.time_field :leaving_time, class: 'form-control'%><br>
-  <%=f.label "勤務時間(分)"%>
-  <%=f.number_field :working_times, class: 'form-control'%><br>
-  <%=f.label "早出(分)"%>
-  <%=f.number_field :early_attendance, class: 'form-control'%><br>
-  <%=f.label "遅退(分)"%>
-  <%=f.number_field :late_leaving, class: 'form-control'%><br>
-  <%=f.label "時間外労働(分)"%>
-  <%=f.number_field :overtime_hours, class: 'form-control'%><br>
-  <%=f.label "休憩時間(分)"%>
-  <%=f.number_field :rest_times, class: 'form-control'%><br>
-  <%=f.label "勤務場所"%>
-  <%=f.collection_select :working_place,working_places,:address,:address, {},{class: 'form-control'}%><br>
-  <%= f.submit "編集",class: "btn btn-primary btn-block"%>
-  <%= link_to "戻る", :back,class: "btn btn-info btn-block" %>
+      <% working_places = WorkingPlace.all %>
+<%= form_with model: @attendance, local: true do |f| %>
+  <%= f.label "出勤時刻" %>
+  <%= f.time_field :attendance_time, class: "form-control" %>　<br>
+  <%= f.label "退勤時刻" %>
+  <%= f.time_field :leaving_time, class: "form-control" %><br>
+  <%= f.label "勤務時間(分)" %>
+  <%= f.number_field :working_times, class: "form-control" %><br>
+  <%= f.label "早出(分)" %>
+  <%= f.number_field :early_attendance, class: "form-control" %><br>
+  <%= f.label "遅退(分)" %>
+  <%= f.number_field :late_leaving, class: "form-control" %><br>
+  <%= f.label "時間外労働(分)" %>
+  <%= f.number_field :overtime_hours, class: "form-control" %><br>
+  <%= f.label "休憩時間(分)" %>
+  <%= f.number_field :rest_times, class: "form-control" %><br>
+  <%= f.label "勤務場所" %>
+  <%= f.collection_select :working_place, working_places, :address, :address, {}, { class: "form-control" } %><br>
+  <%= f.submit "編集", class: "btn btn-primary btn-block" %>
+  <%= link_to "戻る", :back, class: "btn btn-info btn-block" %>
 <% end %>
 </div>
 </div>

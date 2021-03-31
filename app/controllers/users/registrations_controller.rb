@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     if current_user_is_admin?
-    super
+      super
     else
       flash[:alert] = "権限がありません"
       redirect_to root_path
@@ -25,16 +25,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def edit
     if current_user_is_admin?
-    if by_admin_user?(params)
-      self.resource = resource_class.to_adapter.get!(params[:id])
-    else
-      authenticate_scope!
-      super
-    end
+      if by_admin_user?(params)
+        self.resource = resource_class.to_adapter.get!(params[:id])
+      else
+        authenticate_scope!
+        super
+      end
     else
       flash[:alert] = "権限がありません"
       redirect_to root_path
-  end
+    end
   end
 
   # PUT /resource
@@ -86,8 +86,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # protected
-
-
 
   protected
 

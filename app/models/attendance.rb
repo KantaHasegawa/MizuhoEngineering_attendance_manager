@@ -3,63 +3,62 @@ class Attendance < ApplicationRecord
   class << self
     def today_status(user)
       date = Date.today
-      wday =
-        case date.wday
+      wday = case date.wday
         when 0
-          '日'
+          "日"
         when 1
-          '月'
+          "月"
         when 2
-          '火'
+          "火"
         when 3
-          '水'
+          "水"
         when 4
-          '木'
+          "木"
         when 5
-          '金'
+          "金"
         when 6
-          '土'
+          "土"
         end
-      params = {user_id: user.id, date:date, year: date.year, month:date.month, day: date.day, wday: wday}
+      params = { user_id: user.id, date: date, year: date.year, month: date.month, day: date.day, wday: wday }
       self.find_by(params) || self.new(params)
     end
   end
 
   def working_status
-    case[!!attendance_time, !!leaving_time]
+    case [!!attendance_time, !!leaving_time]
     when [false, false]
-    :not_arrived # 未出社
+      :not_arrived # 未出社
     when [true, false]
-    :working # 勤務中
+      :working # 勤務中
     when [true, true]
-    :left # 退社済
+      :left # 退社済
     end
   end
 
   def calculation_early_attendance
-    attendance_regular_working_time = Time.new(Time.now.year,Time.now.month,Time.now.day,8,00)
+    attendance_regular_working_time = Time.new(Time.now.year, Time.now.month, Time.now.day, 8, 00)
     if attendance_regular_working_time - self.attendance_time > 0
-        if attendance_regular_working_time > self.leaving_time
-          self.early_attendance = (self.leaving_time - self.attendance_time) / 60
-        else
-        self.early_attendance = (attendance_regular_working_time - self.attendance_time) / 60
-        end
+      if attendance_regular_working_time > self.leaving_time
+        self.early_attendance = (self.leaving_time - self.attendance_time) / 60
       else
-        self.early_attendance = 0
+        self.early_attendance = (attendance_regular_working_time - self.attendance_time) / 60
       end
+    else
+      self.early_attendance = 0
+    end
   end
 
   def calculation_late_leaving
-      leaving_regular_working_time = Time.new(Time.now.year,Time.now.month,Time.now.day,17,00)
-      if self.leaving_time - leaving_regular_working_time > 0
-        if leaving_regular_working_time < self.attendance_time
-          self.late_leaving = (self.leaving_time - self.attendance_time) / 60
-        else
-          self.late_leaving = (self.leaving_time - leaving_regular_working_time) / 60
-        end
+    leaving_regular_working_time = Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 00)
+    if self.leaving_time - leaving_regular_working_time > 0
+      if leaving_regular_working_time < self.attendance_time
+        self.late_leaving = (self.leaving_time - self.attendance_time) / 60
       else
-        self.late_leaving = 0
+        self.late_leaving = (self.leaving_time - leaving_regular_working_time) / 60
       end
+    else
+      self.late_leaving = 0
+    end
   end
 
   def calculation_working_times
@@ -67,11 +66,11 @@ class Attendance < ApplicationRecord
     self.working_times = working_times - self.early_attendance - self.late_leaving
   end
 
-  def self.search(user,year,month)
+  def self.search(user, year, month)
     if year.blank? || month.blank?
-      return Attendance.where(user:user,year:Date.today.year,month: Date.today.month).order(:day)
+      return Attendance.where(user: user, year: Date.today.year, month: Date.today.month).order(:day)
     else
-      return Attendance.where(user:user,year:year,month:month).order(:day)
+      return Attendance.where(user: user, year: year, month: month).order(:day)
     end
   end
 end

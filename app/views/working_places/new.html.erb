@@ -3,18 +3,18 @@
         <div class="chase-logo">
             <h1 class="text-center">勤務地を追加</h1>
             <p class="text-center">必要な情報を入力してください</p>
-            <%= form_with(model: @working_place, local: true) do |f|%>
-            <%=f.label "住所"%>
-            <%= f.text_field :address,class: 'form-control'%>
+            <%= form_with(model: @working_place, local: true) do |f| %>
+            <%= f.label "住所" %>
+            <%= f.text_field :address, class: "form-control" %>
             <div class="parent">
 
                 <%= f.fields_for :relationships do |relationship| %>
                 <% end %>
-                <%= link_to_add_association "勤務する社員を追加", f, :relationships,class: 'btn btn-outline-success' %>
+                <%= link_to_add_association "勤務する社員を追加", f, :relationships, class: "btn btn-outline-success" %>
             </div>
             <p></p>
-            <%= f.submit "追加",class: 'btn btn-primary btn-block' %>
-            <%= link_to "戻る", :back,class: "btn btn-info btn-block" %>
-            <% end%>
+            <%= f.submit "追加", class: "btn btn-primary btn-block" %>
+            <%= link_to "戻る", :back, class: "btn btn-info btn-block" %>
+            <% end %>
         </div>
     </div>

@@ -2,9 +2,9 @@
 
 <% if user_signed_in? %>
 <p>ようこそ</p>
-  <%if current_user.admin == true%>
+  <% if current_user.admin == true %>
   あなたは管理者です
-  <%end%>
+  <% end %>
 <% else %>
 <p>ログインしてください</p>
 <% end %>

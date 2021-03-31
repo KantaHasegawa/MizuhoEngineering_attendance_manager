@@ -2,14 +2,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-        :recoverable, :rememberable
+         :recoverable, :rememberable
   has_many :attendances
   has_many :relationships, dependent: :destroy, :class_name => "Relationship"
   has_many :working_places, through: :relationships
 
-    # Userレコードをcurrent_password無しで更新する
+  # Userレコードをcurrent_password無しで更新する
 
-    def update_without_password(params, *options)
+  def update_without_password(params, *options)
     current_password = params.delete(:current_password)
 
     if params[:password].blank?
@@ -17,7 +17,7 @@ class User < ApplicationRecord
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
 
-      result = if valid_password?(current_password)
+    result = if valid_password?(current_password)
         update_attributes(params, *options)
       else
         self.assign_attributes(params, *options)
