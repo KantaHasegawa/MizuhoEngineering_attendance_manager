@@ -10,9 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :is_user_admin?
   protect_from_forgery :except => [:destroy]
 
-
   # GET /resource/sign_up
-
 
   # POST /resource
   # def create
@@ -20,12 +18,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def edit
-      if by_admin_user?(params)
-        self.resource = resource_class.to_adapter.get!(params[:id])
-      else
-        authenticate_scope!
-        super
-      end
+    if by_admin_user?(params)
+      self.resource = resource_class.to_adapter.get!(params[:id])
+    else
+      authenticate_scope!
+      super
+    end
   end
 
   # PUT /resource

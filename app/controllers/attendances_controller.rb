@@ -17,10 +17,10 @@ class AttendancesController < ApplicationController
       @attendance.attendance_time = Time.now
       @attendance.working_place = get_near_place(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng])
       @attendance.save
-      flash[:success] = "出勤しました"
+      flash[:notice] = "出勤しました"
       redirect_to controller: :attendances, action: :show, id: @attendance.id
     else
-      flash[:warning] = "指定された勤務地に向かってください"
+      flash[:alert] = "指定された勤務地に向かってください"
       redirect_back(fallback_location: "attendance/show")
     end
   end
@@ -40,10 +40,10 @@ class AttendancesController < ApplicationController
         @attendance.calculation_working_times
         @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
         @attendance.save
-        flash[:success] = "退勤しました"
+        flash[:notice] = "退勤しました"
         redirect_to controller: :attendances, action: :show, id: @attendance.id
       else
-        flash[:warning] = "指定された勤務地に向かってください"
+        flash[:alert] = "指定された勤務地に向かってください"
         redirect_back(fallback_location: "attendance/show")
       end
     end

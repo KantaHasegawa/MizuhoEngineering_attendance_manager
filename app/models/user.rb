@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :attendances
   has_many :relationships, dependent: :destroy, :class_name => "Relationship"
   has_many :working_places, through: :relationships
+  validates :name, presence: true
+  validates :email, presence: true
 
   # Userレコードをcurrent_password無しで更新する
 
