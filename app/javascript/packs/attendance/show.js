@@ -12,14 +12,11 @@ function successFunc(position) {
 }
 
 function errorFunc(error) {
-  // エラーコードのメッセージを定義
   var errorMessage = {
     0: "原因不明のエラーが発生しました…。",
     1: "位置情報の取得が許可されませんでした…。",
     2: "電波状況などで位置情報が取得できませんでした…。",
     3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました…。",
   };
-
-  // エラーコードに合わせたエラー内容をアラート表示
   alert(errorMessage[error.code]);
 }

@@ -28,14 +28,14 @@
       <%=f.hidden_field :lat, value:nil%>
       <%=f.hidden_field :lng, value:nil%>
       <%=f.hidden_field :work_place, value:nil%>
-      <button id="attendance_button" class="btn btn-success btn-lg btn-block">出社</button>
+      <button type="button" id="attendance_button" class="btn btn-success btn-lg btn-block">出社</button>
       <% end%>
       <%elsif !@attendance.leaving_time %>
       <%= form_with model: @attendance, id: 'attendance_form', local: true do |f|%>
       <%=f.hidden_field :status, value:'out'%>
       <%=f.hidden_field :lat, value:nil%>
       <%=f.hidden_field :lng, value:nil%>
-      <button id="attendance_button" class="btn btn-warning btn-lg btn-block">退社</button>
+      <button type="button" id="attendance_button" class="btn btn-warning btn-lg btn-block">退社</button>
       <% end%>
       <% end %>
   </div>
