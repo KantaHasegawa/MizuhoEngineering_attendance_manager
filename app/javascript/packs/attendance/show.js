@@ -1,29 +1,10 @@
-// function set_csrftoken() { //CSRFのエラー対策
-//   $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-//     if (!options.crossDomain) {
-//       const token = $('meta[name="csrf-token"]').attr("content");
-//       if (token) {
-//         return jqXHR.setRequestHeader("X-CSRF-Token", token);
-//       }
-//     }
-//   });
-// }
-
 function successFunc(position) {
-  // set_csrftoken();
   let lat = position.coords.latitude; //緯度
   let lng = position.coords.longitude; //経度
   let form = document.getElementById('attendance_form')
   document.getElementById('attendance_lat').value = lat;
   document.getElementById("attendance_lng").value = lng;
   form.submit();
-
-    // $.ajax({
-    //   type: "POST", // リクエストのタイプ
-    //   url: "/attendances", // リクエストを送信するURL
-    //   data: { lat: lat, lng: lng }, // サーバーに送信するデータ
-    //   dataType: "json", // サーバーから返却される型
-    // });
 }
 
 function errorFunc(error) {

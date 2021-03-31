@@ -16,6 +16,7 @@ class WorkingPlacesController < ApplicationController
 
   def create
     @working_place = WorkingPlace.new(working_place_params)
+    if is_names_unique(params[:working_place][:relationships_attributes])
     unless Geocoder.search(@working_place.address).empty?
       if @working_place.save
         flash[:success] = "勤務地を登録しました"
@@ -28,6 +29,10 @@ class WorkingPlacesController < ApplicationController
       flash[:alert] = "正しい住所を入力してください"
       redirect_to new_working_place_path
     end
+  else
+      flash[:alert] = "名前が重複しています"
+      redirect_to new_working_place_path
+  end
   end
 
   def edit
@@ -37,6 +42,7 @@ class WorkingPlacesController < ApplicationController
 
   def update
     @working_place = WorkingPlace.find(params[:id])
+    if is_names_unique(params[:working_place][:relationships_attributes])
       unless Geocoder.search(@working_place.address).empty?
       @working_place.update(working_place_params)
       if @working_place.save
@@ -44,11 +50,15 @@ class WorkingPlacesController < ApplicationController
         redirect_to working_place_path
       else
         flash[:alert] = "入力に不備があります"
-        redirect_to new_working_place_path
+        redirect_to edit_working_place_path
+      end
+      else
+      flash[:alert] = "正しい住所を入力してください"
+      redirect_to edit_working_place_path
       end
     else
-      flash[:alert] = "正しい住所を入力してください"
-      redirect_to new_working_place_path
+      flash[:alert] = "名前が重複しています"
+      redirect_to edit_working_place_path
     end
 
   end
@@ -61,6 +71,14 @@ class WorkingPlacesController < ApplicationController
 
 
   private
+
+  def is_names_unique(relationships)
+    names = []
+    relationships.each do |r|
+      names.push(r[1][:user_id]) if r[1][:_destroy] == "false"
+    end
+    names == names.uniq
+  end
 
   def working_place_params
     params.require(:working_place).permit(
