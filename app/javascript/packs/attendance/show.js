@@ -1,8 +1,12 @@
+attendance_button.onclick = function () {
+  navigator.geolocation.getCurrentPosition(successFunc, errorFunc);
+};
+
 function successFunc(position) {
   let lat = position.coords.latitude; //緯度
   let lng = position.coords.longitude; //経度
-  let form = document.getElementById('attendance_form')
-  document.getElementById('attendance_lat').value = lat;
+  let form = document.getElementById("attendance_form");
+  document.getElementById("attendance_lat").value = lat;
   document.getElementById("attendance_lng").value = lng;
   form.submit();
 }
@@ -19,7 +23,3 @@ function errorFunc(error) {
   // エラーコードに合わせたエラー内容をアラート表示
   alert(errorMessage[error.code]);
 }
-
-attendance_button.onclick = function () {
-  navigator.geolocation.getCurrentPosition(successFunc, errorFunc);
-};

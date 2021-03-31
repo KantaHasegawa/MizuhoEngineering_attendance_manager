@@ -12,8 +12,10 @@
 
     <body>
         <%= render "layouts/header" %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <%= render 'layouts/flashes' %>
+        <%= flash_message(flash[:success], :success) if flash[:success] %>
+        <%= flash_message(flash[:danger], :danger) if flash[:danger] %>
+        <%= flash_message(flash[:warning], :warning) if flash[:warning] %>
         <div class="container">
         <%= yield %>
         </div>

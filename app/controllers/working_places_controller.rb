@@ -22,15 +22,15 @@ class WorkingPlacesController < ApplicationController
           flash[:success] = "勤務地を登録しました"
           redirect_to controller: :working_places, action: :show, id: @working_place.id
         else
-          flash[:alert] = "入力した住所は既に登録されています"
+          flash[:warning] = "入力した住所は既に登録されています"
           redirect_to new_working_place_path
         end
       else
-        flash[:alert] = "正しい住所を入力してください"
+        flash[:warning] = "正しい住所を入力してください"
         redirect_to new_working_place_path
       end
     else
-      flash[:alert] = "名前が重複しています"
+      flash[:warning] = "名前が重複しています"
       redirect_to new_working_place_path
     end
   end
@@ -49,15 +49,15 @@ class WorkingPlacesController < ApplicationController
           flash[:success] = "勤務地を編集しました"
           redirect_to working_place_path
         else
-          flash[:alert] = "入力に不備があります"
+          flash[:warning] = "入力に不備があります"
           redirect_to edit_working_place_path
         end
       else
-        flash[:alert] = "正しい住所を入力してください"
+        flash[:warning] = "正しい住所を入力してください"
         redirect_to edit_working_place_path
       end
     else
-      flash[:alert] = "名前が重複しています"
+      flash[:warning] = "名前が重複しています"
       redirect_to edit_working_place_path
     end
   end
