@@ -14,10 +14,10 @@
         <%= link_to_add_association "勤務する社員を追加", f, :relationships, class: "btn btn-outline-success" %>
       </div>
       <p></p>
-            <%= f.submit "編集", class: "btn btn-primary btn-block" %>
+            <%= f.submit "確定", class: "btn btn-primary btn-block" %>
             <%= link_to "削除", working_place_path, method: :delete, class: "btn btn-danger btn-block" %>
             <%= link_to "戻る", :back, class: "btn btn-info btn-block" %>
       <% end %>
     </div>
   </div>
-
+  <%=javascript_pack_tag("working_place/edit")%>

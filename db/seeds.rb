@@ -34,12 +34,13 @@
     30.times do |n|
     User.second.attendances.create!(
       user_id: 1,
+      date: Date.today,
       year: 2021,
       month: 3,
       day: n+1,
       wday: "月",
-      attendance_time: Time.new(2000,01,01,06,00,0),
-      leaving_time: Time.new(2000,01,01,18,00,0),
+      attendance_time: Time.new(2020,02,01,06,00,0),
+      leaving_time: Time.new(2020,02,01,18,00,0),
       working_times: 540,
       overtime_hours: 180,
       early_attendance: 120,
@@ -51,12 +52,13 @@
     30.times do |n|
     User.second.attendances.create!(
       user_id: 1,
+      date: Date.today,
       year: 2021,
       month: 4,
       day: n+1,
       wday: "日",
-      attendance_time: Time.new(2000,01,01,06,00,0),
-      leaving_time: Time.new(2000,01,01,18,00,0),
+      attendance_time: Time.new(2020,02,01,06,00,0),
+      leaving_time: Time.new(2020,02,01,18,00,0),
       working_times: 540,
       overtime_hours: 180,
       early_attendance: 120,

@@ -57,12 +57,21 @@ class WorkingPlacesController < ApplicationController
     @working_place = WorkingPlace.find(params[:id])
     unless Geocoder.search(@working_place.address).empty?
       if params[:working_place][:relationships_attributes]
+
+        # binding.pry
+
         if is_names_unique(params[:working_place][:relationships_attributes])
+
+          # binding.pry
+
           @working_place.update(working_place_params)
           if @working_place.save
             flash[:notice] = "勤務地を編集しました"
             redirect_to working_place_path
           else
+
+            # binding.pry
+
             flash[:alert] = "入力に不備があります"
             redirect_to edit_working_place_path
           end
@@ -76,6 +85,9 @@ class WorkingPlacesController < ApplicationController
           flash[:notice] = "勤務地を編集しました"
           redirect_to working_place_path
         else
+
+          # binding.pry
+
           flash[:alert] = "入力に不備があります"
           redirect_to edit_working_place_path
         end

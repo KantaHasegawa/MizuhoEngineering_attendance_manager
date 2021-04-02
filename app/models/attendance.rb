@@ -45,7 +45,10 @@ class Attendance < ApplicationRecord
   end
 
   def calculation_early_attendance
-    attendance_regular_working_time = Time.new(Time.now.year, Time.now.month, Time.now.day, 8, 00)
+    attendance_regular_working_time = Time.new(self.year, self.month, self.day, 8, 00)
+
+    binding.pry
+
     if attendance_regular_working_time - self.attendance_time > 0
       if attendance_regular_working_time > self.leaving_time
         self.early_attendance = (self.leaving_time - self.attendance_time) / 60
@@ -58,7 +61,7 @@ class Attendance < ApplicationRecord
   end
 
   def calculation_late_leaving
-    leaving_regular_working_time = Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 00)
+    leaving_regular_working_time = Time.new(self.year, self.month, self.day, 17, 00)
     if self.leaving_time - leaving_regular_working_time > 0
       if leaving_regular_working_time < self.attendance_time
         self.late_leaving = (self.leaving_time - self.attendance_time) / 60
