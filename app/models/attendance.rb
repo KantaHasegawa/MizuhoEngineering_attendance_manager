@@ -47,7 +47,7 @@ class Attendance < ApplicationRecord
   def calculation_early_attendance
     attendance_regular_working_time = Time.new(self.year, self.month, self.day, 8, 00)
 
-    binding.pry
+    # binding.pry
 
     if attendance_regular_working_time - self.attendance_time > 0
       if attendance_regular_working_time > self.leaving_time
