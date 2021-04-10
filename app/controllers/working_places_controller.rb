@@ -9,7 +9,7 @@ class WorkingPlacesController < ApplicationController
   end
 
   def index
-    @working_places = WorkingPlace.all
+    @working_places = WorkingPlace.all.page(params[:page]).per(13)
   end
 
   def show

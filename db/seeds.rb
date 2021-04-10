@@ -5,7 +5,7 @@
     admin: true
   )
 
-  10.times do |n|
+  30.times do |n|
     User.create!(
       email: "test#{n + 1}@gmail.com",
       name: Gimei.name.kanji,

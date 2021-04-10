@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   before_action :is_user_admin?
 
   def index
-    @users = User.where(admin: false)
+    @users = User.where(admin: false).page(params[:page]).per(13)
   end
 
   def table
