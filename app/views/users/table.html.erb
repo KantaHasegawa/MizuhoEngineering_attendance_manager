@@ -11,7 +11,7 @@
 <%= submit_tag "検索", :name => nil, class: "btn btn-secondary" %>
 </div>
 <div class='col-1'>
-<%= link_to "Excel", user_path(format: :xlsx), data: { confirm: "Excel出力しますか？" }, class: "btn btn-success" %>
+<%= link_to "Excel", "/users/#{@user.id}/table.xlsx", data: { confirm: "Excel出力しますか？" }, class: "btn btn-success" %>
 </div>
 </div>
 
