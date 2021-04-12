@@ -17,6 +17,7 @@ class AttendancesController < ApplicationController
       @attendance.attendance_time = Time.now
       @attendance.working_place = get_near_place(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng])
       @attendance.save
+      AttendanceMailer.with(user: current_user,attendance: @attendance).attendance_email.deliver_later
       flash[:notice] = "出勤しました"
       redirect_to controller: :attendances, action: :show, id: @attendance.id
     else
@@ -40,6 +41,7 @@ class AttendancesController < ApplicationController
         @attendance.calculation_working_times
         @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
         @attendance.save
+        AttendanceMailer.with(user: current_user,attendance: @attendance).leaving_email.deliver_later
         flash[:notice] = "退勤しました"
         redirect_to controller: :attendances, action: :show, id: @attendance.id
       else

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <p>
+    <%="#{@user.name}さんが出勤しました"%>
+  </p>
+  <p><%="勤務地:#{@attendance.working_place}"%></p>
+  <p><%="出勤時刻:#{@attendance.attendance_time.strftime("%H:%M")}"%></p>
+</body>
+</html>

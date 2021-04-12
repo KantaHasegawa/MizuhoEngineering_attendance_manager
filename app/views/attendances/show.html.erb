@@ -3,15 +3,15 @@
     <div class="chase-logo">
       <% case @attendance.working_status%>
       <% when :not_arrived%>
-      <h1 class="text-center">未出社</h1>
+      <h1 class="text-center"><span class="badge badge-info">未出社</span></h1>
       <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
       <% when :working%>
-      <h1 class="text-center">出勤中</h1>
+      <h1 class="text-center"><span class="badge badge-success">出勤中</span></h1>
       <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
 
       <h3 class="text-center"><%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%></h3>
       <% when :left%>
-      <h1 class="text-center">退勤済み</h1>
+      <h1 class="text-center"><span class="badge badge-warning">退勤済み</span></h1>
       <h3 class="text-center"><%="今日の日付:#{Date.today}"%></h3>
       <h3 class="text-center"><%="出勤時刻: #{@attendance.attendance_time.strftime("%H:%M:%S")}"%></h3>
       <h3 class="text-center"><%="退勤時刻: #{@attendance.leaving_time.strftime("%H:%M:%S")}"%></h3>
