@@ -4,7 +4,11 @@ window.addEventListener("popstate", (e) => {
 });
 
 attendance_button.onclick = function () {
+  if (window.confirm('本当によろしいですか？')) {
   navigator.geolocation.getCurrentPosition(successFunc, errorFunc);
+  } else {
+    return false;
+  }
 };
 
 function successFunc(position) {

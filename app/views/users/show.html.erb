@@ -3,7 +3,7 @@
   <div class="account-wall">
     <div class="chase-logo">
       <h2 class="text-center"><%= @user.name %></h2>
-      <h5 class="text-center"><%= @user.email %></h5>
+      <h6 class="text-center"><%= @user.email %></h6>
           <h4 class="text-center">出勤可能な勤務地</h4>
             <% @working_places.each do |working_place| %>
             <p class=text-center><%= "・#{working_place.address}" %></p>
