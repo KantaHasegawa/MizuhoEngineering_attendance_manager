@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @working_places = current_user.working_places
+    @working_places = @user.working_places
   end
 
   def destroy
