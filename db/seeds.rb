@@ -33,10 +33,9 @@
 
     30.times do |n|
     User.second.attendances.create!(
-      user_id: 1,
       date: Date.today,
       year: 2021,
-      month: 3,
+      month: 2,
       day: n+1,
       wday: "月",
       attendance_time: Time.new(2020,02,01,06,00,0),
@@ -51,10 +50,9 @@
 
     30.times do |n|
     User.second.attendances.create!(
-      user_id: 1,
       date: Date.today,
       year: 2021,
-      month: 4,
+      month: 3,
       day: n+1,
       wday: "日",
       attendance_time: Time.new(2020,02,01,06,00,0),

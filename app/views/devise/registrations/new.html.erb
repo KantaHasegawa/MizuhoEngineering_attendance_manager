@@ -16,6 +16,7 @@
       <%= f.label :email %><br />
       <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
     </div>
+    <p hidden=true id="email_error_message" style="color: red;">※そのメールアドレスは既に使われています</p>
 
     <div class="field">
       <%= f.label :password %>

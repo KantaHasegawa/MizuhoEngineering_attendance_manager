@@ -11,6 +11,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protect_from_forgery :except => [:destroy]
 
   # GET /resource/sign_up
+  def new
+    gon.push({
+        emails: User.all.select(:email)
+    })
+    super
+  end
 
   # POST /resource
   # def create
@@ -19,6 +25,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def edit
     if by_admin_user?(params)
+      gon.push({
+        emails: User.where.not(id: params[:id]).select(:email)
+      })
       self.resource = resource_class.to_adapter.get!(params[:id])
     else
       authenticate_scope!

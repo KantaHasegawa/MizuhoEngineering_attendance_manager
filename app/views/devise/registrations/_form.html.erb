@@ -15,6 +15,7 @@
 <%= f.text_field :name, class: "form-control" %>
 <%= f.label :email %>
 <%= f.email_field :email, class: "form-control" %>
+<p hidden=true id="email_error_message" style="color: red;">※そのメールアドレスは既に使われています</p>
 <% end %>
 <% required = false %>
 <% if resource.new_record? %>
