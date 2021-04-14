@@ -27,7 +27,9 @@
 <%= f.label :password_confirmation %>
 <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
 <%= f.submit "確定", class: "btn btn-primary btn-block", id: "submit_button" %>
-<% end %>
+<%= link_to "削除", user_path, method: :delete, class: "btn btn-danger btn-block" %>
 <%= link_to "戻る", user_path, class: "btn btn-info btn-block" %>
+<% end %>
+
 </div>
 </div>

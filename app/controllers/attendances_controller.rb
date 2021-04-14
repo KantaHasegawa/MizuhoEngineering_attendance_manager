@@ -31,7 +31,8 @@ class AttendancesController < ApplicationController
       @attendance = Attendance.find(params[:id])
       @attendance.update(attendance_params)
       @attendance.save
-      redirect_to controller: :users, action: :show, id: @attendance.user_id
+      flash[:notice] = "勤務データを編集しました"
+      redirect_to controller: :users, action: :table, id: @attendance.user_id
     else
       if is_current_position_within_working_places(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng]) == true
         @attendance = Attendance.today_status(current_user)
@@ -49,6 +50,13 @@ class AttendancesController < ApplicationController
         redirect_back(fallback_location: "attendance/show")
       end
     end
+  end
+
+  def destroy
+      @attendance = Attendance.find(params[:id])
+      @attendance.destroy
+      flash[:notice] = "勤務データを削除しました"
+      redirect_to controller: :users, action: :table, id: @attendance.user_id
   end
 
   private

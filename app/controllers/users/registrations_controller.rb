@@ -69,9 +69,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # DELETE /resource
   # def destroy
-  #   super
+  #   redirect_to users_path
   # end
 
   # GET /resource/cancel

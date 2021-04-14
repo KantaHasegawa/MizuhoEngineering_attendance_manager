@@ -2,13 +2,7 @@ class Attendance < ApplicationRecord
   belongs_to :user
   class << self
     def today_status(user)
-
-      # binding.pry
-
       if self.find_by(user:user.id,leaving_time:nil)
-
-        # binding.pry
-
         return self.find_by(user:user.id,leaving_time:nil)
       end
       date = Date.today
@@ -46,9 +40,6 @@ class Attendance < ApplicationRecord
 
   def calculation_early_attendance
     attendance_regular_working_time = Time.new(self.year, self.month, self.day, 8, 00)
-
-    # binding.pry
-
     if attendance_regular_working_time - self.attendance_time > 0
       if attendance_regular_working_time > self.leaving_time
         self.early_attendance = (self.leaving_time - self.attendance_time) / 60

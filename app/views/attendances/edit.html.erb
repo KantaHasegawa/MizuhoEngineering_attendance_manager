@@ -22,6 +22,7 @@
   <%= f.label "勤務場所" %>
   <%= f.collection_select :working_place, working_places, :address, :address, {}, { class: "form-control" } %><br>
   <%= f.submit "確定", class: "btn btn-primary btn-block" %>
+  <%= link_to "削除", attendance_path, method: :delete, class: "btn btn-danger btn-block" %>
   <%= link_to "戻る", :back, class: "btn btn-info btn-block" %>
 <% end %>
 </div>

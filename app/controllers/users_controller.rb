@@ -34,7 +34,6 @@ class UsersController < ApplicationController
     end
     @current_month_working_times = current_month_working_times.divmod(60)
     @current_month_overtime_hours = current_month_overtime_hours.divmod(60)
-    #エクセル
     workbook = RubyXL::Parser.parse("app/assets/template.xlsx")
     workbook.calc_pr.full_calc_on_load = true
     workbook.calc_pr.calc_completed = true
@@ -75,5 +74,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @working_places = current_user.working_places
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = "ユーザーを削除しました"
+    redirect_to users_path
   end
 end
