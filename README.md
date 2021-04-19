@@ -11,7 +11,7 @@
 <p>ユーザーと勤務地を登録した後、それぞれを紐づけすることができます</p>
 <p>こうすることでユーザーは紐づけされた勤務地内以外での出勤退勤を制限されます</p>
 <p>デモサイトにはemail: "admin@gmail.com" password: "adminadmin" で管理者ログインすることができます</p>
-<p>管理者でないユーザーとしてemail: "test(1~5)@gmail.com" password: "test(01~05)" を用意しています</p>
+<p>管理者でないユーザーとしてemail: "test(n)@gmail.com" password: "testtest(n)" を用意しています</p>
 <h2>Versions</h2>
 <p>Rails 6.0.3.5</p>
 <p>ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-linux]</p>

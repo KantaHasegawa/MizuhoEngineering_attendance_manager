@@ -14,53 +14,80 @@
     )
   end
 
-  WorkingPlace.create!(
-    address: "名古屋市瑞穂区東栄町5-12-3"
-  )
-
-  User.all.each do |user|
+  User.where.not(id: 1).each do |user|
     user.working_places.create!(
       address: Gimei.address.kanji,
     )
   end
 
-  User.all.each do |user|
-    Relationship.create!(
-      user_id: user.id,
-      working_place_id: 1
-    )
-  end
-
     30.times do |n|
-    User.second.attendances.create!(
-      date: Date.today,
-      year: 2021,
-      month: 2,
-      day: n+1,
-      wday: "月",
-      attendance_time: Time.new(2020,02,01,06,00,0),
-      leaving_time: Time.new(2020,02,01,18,00,0),
-      working_times: 540,
-      overtime_hours: 180,
-      early_attendance: 120,
-      late_leaving: 60,
-      working_place: Gimei.address.kanji
-    )
-  end
+    date = DateTime.new(2021,03,n+1)
+      wday = case date.wday
+        when 0
+          "日"
+        when 1
+          "月"
+        when 2
+          "火"
+        when 3
+          "水"
+        when 4
+          "木"
+        when 5
+          "金"
+        when 6
+          "土"
+      end
+        User.where.not(id: 1).each do |user|
+          user.attendances.create!(
+            date: date,
+            year: 2021,
+            month: 3,
+            day: n+1,
+            wday: wday,
+            attendance_time: Time.new(2020,03,n+1,06,00,0),
+            leaving_time: Time.new(2020,03,n+1,18,00,0),
+            working_times: 540,
+            overtime_hours: 180,
+            early_attendance: 120,
+            late_leaving: 60,
+            working_place: Gimei.address.kanji
+          )
+        end
+    end
 
-    30.times do |n|
-    User.second.attendances.create!(
-      date: Date.today,
-      year: 2021,
-      month: 3,
-      day: n+1,
-      wday: "日",
-      attendance_time: Time.new(2020,02,01,06,00,0),
-      leaving_time: Time.new(2020,02,01,18,00,0),
-      working_times: 540,
-      overtime_hours: 180,
-      early_attendance: 120,
-      late_leaving: 60,
-      working_place: Gimei.address.kanji
-    )
-  end
+    19.times do |n|
+    date = DateTime.new(2021,04,n+1)
+      wday = case date.wday
+        when 0
+          "日"
+        when 1
+          "月"
+        when 2
+          "火"
+        when 3
+          "水"
+        when 4
+          "木"
+        when 5
+          "金"
+        when 6
+          "土"
+      end
+        User.where.not(id: 1).each do |user|
+          user.attendances.create!(
+            date: date,
+            year: 2021,
+            month: 4,
+            day: n+1,
+            wday: wday,
+            attendance_time: Time.new(2020,04,n+1,06,00,0),
+            leaving_time: Time.new(2020,04,n+1,18,00,0),
+            working_times: 540,
+            overtime_hours: 180,
+            early_attendance: 120,
+            late_leaving: 60,
+            working_place: Gimei.address.kanji
+          )
+        end
+    end
