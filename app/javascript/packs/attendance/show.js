@@ -3,21 +3,35 @@ window.addEventListener("popstate", (e) => {
   history.go(1);
 });
 
+const options = {
+  enableHighAccuracy: true,
+  maximumAge: -1,
+  timeout: 10000,
+};
+
 attendance_button.onclick = function () {
   if (window.confirm('本当によろしいですか？')) {
-  navigator.geolocation.getCurrentPosition(successFunc, errorFunc);
+  navigator.geolocation.getCurrentPosition(
+    successFunc,
+    errorFunc,
+    options
+  );
   } else {
     return false;
   }
 };
 
 function successFunc(position) {
-  let lat = position.coords.latitude; //緯度
-  let lng = position.coords.longitude; //経度
-  let form = document.getElementById("attendance_form");
-  document.getElementById("attendance_lat").value = lat;
-  document.getElementById("attendance_lng").value = lng;
-  form.submit();
+  if (position.coords.accuracy > 1000) {
+    alert("取得した位置情報の精度が悪いようです\nWiFiに接続している場合は切断して下さい")
+  } else {
+    let lat = position.coords.latitude; 
+    let lng = position.coords.longitude;
+    let form = document.getElementById("attendance_form");
+    document.getElementById("attendance_lat").value = lat;
+    document.getElementById("attendance_lng").value = lng;
+    form.submit();
+  }
 }
 
 function errorFunc(error) {

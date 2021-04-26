@@ -2,8 +2,15 @@ class AttendancesController < ApplicationController
   include CommonActions
   before_action :is_user_admin?, only: [:edit]
 
+  def new
+  end
+
   def show
     @attendance = Attendance.today_status(current_user)
+    if @attendance.working_status == :left
+      flash[:alert] = "今日の勤務は終了しています"
+      redirect_to controller: :attendances, action: :new, id: @attendance.id
+    end
     @working_places = current_user.working_places
   end
 
@@ -44,7 +51,7 @@ class AttendancesController < ApplicationController
         @attendance.save
         AttendanceMailer.with(user: current_user,attendance: @attendance).leaving_email.deliver_later
         flash[:notice] = "退勤しました"
-        redirect_to controller: :attendances, action: :show, id: @attendance.id
+        redirect_to controller: :attendances, action: :new
       else
         flash[:alert] = "指定された勤務地に向かってください"
         redirect_back(fallback_location: "attendance/show")
@@ -67,6 +74,8 @@ class AttendancesController < ApplicationController
       distance = working_place.distance_from([lat, lng])
       distances.push(distance)
     end
+
+
     if distances.any? { |v| v < 1 }
       return true
     else

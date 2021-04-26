@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if current_user.admin == true
       users_path
     else
-      "/attendances/show"
+      "/attendances/new"
     end
   end
 
