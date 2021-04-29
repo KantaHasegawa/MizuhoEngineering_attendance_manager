@@ -10,7 +10,8 @@ threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+# port        ENV.fetch("PORT") { 3000 }
+bind "unix:///app/tmp/sockets/puma.sock"
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -24,6 +25,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # the concurrency of the application would be max `threads` * `workers`.
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
+require 'fileutils'
+before_fork do |server,worker|
+	FileUtils.touch('/tmp/app-initialized')
+end
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
