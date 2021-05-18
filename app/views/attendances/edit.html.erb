@@ -4,7 +4,7 @@
       <h1 class="text-center"><%= "#{@attendance.year}年#{@attendance.month}月#{@attendance.day}日" %></h1>
       <p class="text-center">修正する情報を入力してください</p>
       <% working_places = WorkingPlace.all %>
-<%= form_with model: @attendance, local: true do |f| %>
+<%= form_with model: @attendance, local: true, html: {novalidate: true} do |f| %>
   <%= f.label "出勤時刻" %>
   <%= f.datetime_local_field :attendance_time, min: @attendance.attendance_time, class: "form-control" %>　<br>
   <%= f.label "退勤時刻" %>
