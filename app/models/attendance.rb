@@ -1,4 +1,12 @@
 class Attendance < ApplicationRecord
+    validates_presence_of(:attendance_time)
+    validates_presence_of(:working_place)
+    validates_presence_of(:date)
+    validates_presence_of(:year)
+    validates_presence_of(:month)
+    validates_presence_of(:day)
+    validates_presence_of(:wday)
+    validates_uniqueness_of(:date, scope: :user_id)
   belongs_to :user
   class << self
     def today_status(user)
