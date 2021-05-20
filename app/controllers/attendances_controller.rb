@@ -43,6 +43,7 @@ class AttendancesController < ApplicationController
     else
       if is_current_position_within_working_places(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng]) == true
         @attendance = Attendance.today_status(current_user)
+        @attendance.leaving_place = get_near_place(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng])
         @attendance.leaving_time = Time.now
         @attendance.calculation_early_attendance
         @attendance.calculation_late_leaving
@@ -109,6 +110,7 @@ class AttendancesController < ApplicationController
       :working_times,
       :overtime_hours,
       :working_place,
+      :leaving_place,
     )
   end
 end

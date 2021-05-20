@@ -23,7 +23,8 @@
       <th>月</th>
       <th>日</th>
       <th>曜日</th>
-      <th>勤務地</th>
+      <th>出勤地</th>
+      <th>退勤地</th>
       <th>出勤時刻</th>
       <th>退勤時刻</th>
       <th>勤務時間</th>
@@ -45,6 +46,7 @@
       <td><%= "#{attendance.day}日" %></td>
       <td><%= "#{attendance.wday}曜日" %></td>
       <td><%= attendance.working_place %></td>
+      <td><%= attendance.leaving_place %></td>
       <td><%= attendance.attendance_time.strftime("%H:%M")  %></td>
       <td><%= attendance.leaving_time.strftime("%H:%M")  if attendance.leaving_time%></td>
       <td><%= "#{working_times[0]}h#{working_times[1]}m" if attendance.working_times %></td>
