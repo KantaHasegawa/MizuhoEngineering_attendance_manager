@@ -37,6 +37,10 @@ class AttendancesController < ApplicationController
     if current_user.admin == true
       @attendance = Attendance.find(params[:id])
       @attendance.update(attendance_params)
+      @attendance.calculation_early_attendance
+      @attendance.calculation_late_leaving
+      @attendance.calculation_working_times
+      @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
       @attendance.save
       flash[:notice] = "勤務データを編集しました"
       redirect_to controller: :users, action: :table, id: @attendance.user_id
