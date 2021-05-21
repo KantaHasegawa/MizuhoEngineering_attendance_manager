@@ -62,7 +62,7 @@ class AttendancesController < ApplicationController
         end
         if  @attendance.save
             flash[:notice] = "登録しました"
-            redirect_to new_attendance_path
+            redirect_to "/users/#{attendance_params['user_id']}/table"
         else
             flash[:alert] = "失敗しました"
             redirect_to new_attendance_path
