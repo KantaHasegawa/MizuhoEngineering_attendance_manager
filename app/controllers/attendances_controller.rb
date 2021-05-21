@@ -88,7 +88,7 @@ class AttendancesController < ApplicationController
     if current_user.admin == true
       @attendance = Attendance.find(params[:id])
       @attendance.update(attendance_params)
-      unless attendance_params['leaving_time']
+      unless attendance_params['leaving_time'].blank?
         @attendance.calculation_early_attendance
         @attendance.calculation_late_leaving
         @attendance.calculation_working_times
