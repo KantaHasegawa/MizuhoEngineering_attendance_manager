@@ -100,16 +100,21 @@ class AttendancesController < ApplicationController
     else
       if is_current_position_within_working_places(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng]) == true
         @attendance = Attendance.today_status(current_user)
-        @attendance.leaving_place = get_near_place(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng])
-        @attendance.leaving_time = Time.now
-        @attendance.calculation_early_attendance
-        @attendance.calculation_late_leaving
-        @attendance.calculation_working_times
-        @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
-        @attendance.save
-        AttendanceMailer.with(user: current_user,attendance: @attendance).leaving_email.deliver_later
-        flash[:notice] = "退勤しました"
-        redirect_to controller: :attendances, action: :new
+        if (Time.now - @attendance.attendance_time).to_i / 60 > 30
+            @attendance.leaving_place = get_near_place(current_user.working_places, params[:attendance][:lat], params[:attendance][:lng])
+            @attendance.leaving_time = Time.now
+            @attendance.calculation_early_attendance
+            @attendance.calculation_late_leaving
+            @attendance.calculation_working_times
+            @attendance.overtime_hours = @attendance.late_leaving + @attendance.early_attendance
+            @attendance.save
+            AttendanceMailer.with(user: current_user,attendance: @attendance).leaving_email.deliver_later
+            flash[:notice] = "退勤しました"
+            redirect_to controller: :attendances, action: :new
+        else
+            flash[:alert] = "退勤が早すぎます"
+            redirect_back(fallback_location: "attendance/show")
+        end
       else
         flash[:alert] = "指定された勤務地に向かってください"
         redirect_back(fallback_location: "attendance/show")
